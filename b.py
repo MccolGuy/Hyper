@@ -9,6 +9,10 @@ import os
 import sys
 import time
 from win32com.client import Dispatch
+import tkinter as tk
+import glob
+from tkinter import filedialog
+import shutil
 winpassword = 2
 scnprotecter = 2
 stopusbauto = 2
@@ -76,7 +80,7 @@ class First(QMainWindow, Mainwindow.Ui_MainWindow):
         super(First, self).__init__(parent)
         self.setupUi(self)
         self.pushButton_1.clicked.connect(self.open_checkmn)
-
+        self.pushButton_2.clicked.connect(self.startfileorg)
         self.dialog = Second(self)
         # 메인윈도우 보이기
         self.show()
@@ -84,7 +88,8 @@ class First(QMainWindow, Mainwindow.Ui_MainWindow):
     def open_checkmn(self):
 
         self.dialog.show()
-
+    def startfileorg(self):
+        fileorganizer()
 def stopusbautocheck():
     global stopusbauto
     stopusbauto_reg = r"SYSTEM\CurrentControlSet\Services\cdrom"
@@ -189,7 +194,67 @@ def winpasswordcheck():
         winpassword = 1
     else:
         winpassword = 0
-
+def fileorganizer():
+    root = tk.Tk()
+    root.withdraw()
+    file_path = filedialog.askdirectory()
+    os.chdir(file_path)
+    print(file_path)
+    jpg_list = glob.glob(file_path + "/*.jpg")
+    exe_list = glob.glob(file_path + "/*.exe")
+    png_list = glob.glob(file_path + "/*.png")
+    pptx_list = glob.glob(file_path + "/*.pptx")
+    zip_list = glob.glob(file_path + "/*.zip")
+    hwp_list = glob.glob(file_path + "/*.hwp")
+    if os.path.isdir(file_path + "/jpg"):
+        for i in jpg_list:
+            shutil.move(i, file_path + "/jpg")
+    else:
+        os.mkdir(file_path + "/jpg")
+        for i in jpg_list:
+            shutil.move(i, file_path + "/jpg")
+    print("jpg 파일 분류중")
+    if os.path.isdir(file_path + "/exe"):
+        for i in exe_list:
+            shutil.move(i, file_path + "/exe")
+    else:
+        os.mkdir(file_path + "/exe")
+        for i in exe_list:
+            shutil.move(i, file_path + "/exe")
+    print("exe 파일 정리중")
+    if os.path.isdir(file_path + "/png"):
+        for i in png_list:
+            shutil.move(i, file_path + "/png")
+    else:
+        os.mkdir(file_path + "/png")
+        for i in png_list:
+            shutil.move(i, file_path + "/png")
+    print("png 파일 정리중")
+    if os.path.isdir(file_path + "/pptx"):
+        for i in pptx_list:
+            shutil.move(i, file_path + "/pptx")
+    else:
+        os.mkdir(file_path + "/pptx")
+        for i in pptx_list:
+            shutil.move(i, file_path + "/pptx")
+    print("pptx 파일 정리중")
+    if  os.path.isdir(file_path + "/zip"):
+        for i in zip_list:
+            shutil.move(i, file_path + "/zip")
+    else:
+        os.mkdir(file_path + "/zip")
+        for i in zip_list:
+            shutil.move(i, file_path + "/zip")
+    print("zip 파일 정리중")
+    if os.path.isdir(file_path + "/hwp"):
+        for i in hwp_list:
+            shutil.move(i, file_path + "/hwp")
+    else:
+        os.mkdir(file_path + "/hwp")
+        for i in hwp_list:
+            shutil.move(i, file_path + "/hwp")
+    print("hwp 파일 정리중")
+    print("파일 분류가 완료 되었습니다.")
 def mkpw():
     user = getpass.getuser()
     pw = input("새비밀번호\n")
