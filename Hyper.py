@@ -41,14 +41,14 @@ class Third(QDialog, checkst.Ui_Dialog):
         else:
             self.st_5.setText("안전")
         if Hncupdate == 1:
-            self.st_2.setText("취약")
+            self.st_2.setText("취약") 
         else:
             self.st_2.setText("안전")
     def start_start(self):
         if winpassword == 1:
             print("윈도우 패스워드 재설정")
-        if is_admin():
-            mkpw()
+            if is_admin():
+                mkpw()
         else:
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
         if scnprotecter == 1:
@@ -128,7 +128,7 @@ def HncUpdateCheck():
     lines = f.readlines()
     hncnewversion = lines[0]
     ver_parser = Dispatch('Scripting.FileSystemObject')
-    path = "C:\\Program Files (x86)\\Hnc\\Hwp80\\Hwp.exe"
+    path = "C:\\Program Files\\Hnc\\HOffice9\\Bin\\Hwp.exe"
     info = ver_parser.GetFileVersion(path)
     a1 = hncnewversion[0]
     b1 = info[0]
@@ -147,7 +147,7 @@ def HncUpdateCheck():
         Hncupdate = 0
 
 def hncupdate():
-    os.chdir("C:\\Program Files (x86)\\Hnc\\HncUtils\\Update")
+    os.chdir("C:\\Program Files\\Hnc\\HncUtils\\Update")
     subprocess.call("HncUpdate90.exe", shell=True)
 def scnprotectercheck():
     global scnprotecter
